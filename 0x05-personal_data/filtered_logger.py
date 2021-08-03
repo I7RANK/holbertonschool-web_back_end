@@ -39,7 +39,7 @@ def filter_datum(
 ) -> str:
     """returns the log message obfuscated"""
     redaction += separator
-    regex_str = "=[\\S]*?;"
+    regex_str = "=[\\s\\S]*?;"
     for i in fields:
         message = re.sub(i + regex_str, i + "=" + redaction, message)
     return message
