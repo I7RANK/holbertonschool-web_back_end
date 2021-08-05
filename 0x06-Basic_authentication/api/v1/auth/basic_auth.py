@@ -74,7 +74,7 @@ class BasicAuth(Auth):
 
         try:
             users = User.search({'email': user_email})
-        except:
+        except Exception:
             return None
 
         if users and isinstance(users, list):
