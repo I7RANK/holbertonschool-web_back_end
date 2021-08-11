@@ -54,7 +54,10 @@ def auth_session_login() -> str:
     strict_slashes=False
 )
 def auth_session_logout() -> str:
-    """"""
+    """ DELETE /auth_session/logout
+    Return:
+      - the respons
+    """
     from api.v1.app import auth
 
     if auth.destroy_session(request):
