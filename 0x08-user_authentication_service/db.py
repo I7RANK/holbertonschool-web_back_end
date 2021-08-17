@@ -79,10 +79,7 @@ class DB:
     def update_user(self, user_id: int, **kwargs):
         """Updates an user
         """
-        try:
-            user = self.find_user_by(id=user_id)
-        except NoResultFound:
-            return None
+        user = self.find_user_by(id=user_id)
 
         for k, v in kwargs.items():
             if k not in valid_fields:
