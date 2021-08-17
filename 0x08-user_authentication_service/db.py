@@ -79,12 +79,17 @@ class DB:
     def update_user(self, user_id: int, **kwargs):
         """Updates an user
         """
-        user = self.find_user_by(id=user_id)
+        try:
+            user = self.find_user_by(id=user_id)
+        except NoResultFound:
+            return None
 
         for k, v in kwargs.items():
             if k not in valid_fields:
-                raise InvalidRequestError
+                raise ValueError
 
             setattr(user, k, v)
 
         self._session.commit()
+
+        return None
