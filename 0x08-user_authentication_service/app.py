@@ -81,7 +81,7 @@ def profile():
     return jsonify({"email": user.email}), 200
 
 
-@app.route("/reset_password", methods=["POST"],strict_slashes=False)
+@app.route("/reset_password", methods=["POST"], strict_slashes=False)
 def get_reset_password_token():
     """returns a token to restore password if the user exist
     """
