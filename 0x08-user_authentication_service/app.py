@@ -53,7 +53,7 @@ def login():
     return response
 
 
-@app.route("/sessions", methods=["DELETE"])
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
     """destroys the session if exists
         and redirect the user to GET '/'
@@ -69,7 +69,7 @@ def logout():
     return redirect('/')
 
 
-@app.route("/profile")
+@app.route("/profile", strict_slashes=False)
 def profile():
     """checks if the session_id exist and responds with 200 status
     """
@@ -81,23 +81,20 @@ def profile():
     return jsonify({"email": user.email}), 200
 
 
-@app.route("/reset_password", methods=["POST"])
+@app.route("/reset_password", methods=["POST"],strict_slashes=False)
 def get_reset_password_token():
     """returns a token to restore password if the user exist
     """
     email = request.form.get('email')
 
-    new_token = None
-
     try:
         new_token = AUTH.get_reset_password_token(email)
+        return jsonify({"email": email, "reset_token": new_token})
     except NoResultFound:
         abort(403)
 
-    return jsonify({"email": email, "reset_token": new_token})
 
-
-@app.route("/reset_password", methods=["PUT"])
+@app.route("/reset_password", methods=["PUT"], strict_slashes=False)
 def update_password():
     """Updates the password. If the token is invalid
     """
