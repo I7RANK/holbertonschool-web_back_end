@@ -49,14 +49,13 @@ class Auth:
     def valid_login(self, email: str, password: str) -> bool:
         """Validates if the user exist and the pass is correct
         """
-        user = None
-
         try:
             user = self._db.find_user_by(email=email)
+            if user:
+                pwd_encoded = password.encode()
+                return bcrypt.checkpw(pwd_encoded, user.hashed_password)
         except NoResultFound:
             return False
-
-        return bcrypt.checkpw(password.encode(), user.hashed_password)
 
     def create_session(self, email: str) -> str:
         """generate a new UUID
