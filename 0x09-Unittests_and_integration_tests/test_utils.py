@@ -17,13 +17,12 @@ from typing import (
 class TestAccessNestedMap(unittest.TestCase):
     """test class for utils.access_nested_map method"""
     @parameterized.expand([
-        ('expected_1', {"a": 1}, ("a",), 1),
-        ('expected_dict', {"a": {"b": 2}}, ("a",), {"b": 2}),
-        ('expected_2', {"a": {"b": 2}}, ("a", "b"), 2)
+        ({"a": 1}, ("a",), 1),
+        ({"a": {"b": 2}}, ("a",), {'b': 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
     def test_access_nested_map(
         self,
-        name: str,
         nested_map: Mapping, path: Sequence,
         expected: Any
     ):
