@@ -10,8 +10,8 @@ from utils import access_nested_map
 class TestAccessNestedMap(unittest.TestCase):
     """test class for utils.access_nested_map method"""
     @parameterized.expand([
-        ('expected_1', {"a": 1}, ("a",), 2),
-        ('expected_dict', {"a": {"b": 2}}, ("a",), 2),
+        ('expected_1', {"a": 1}, ("a",), 1),
+        ('expected_dict', {"a": {"b": 2}}, ("a",), {"b": 2}),
         ('expected_2', {"a": {"b": 2}}, ("a", "b"), 2)
     ])
     def test_access_nested_map(self, name, nested_map, path, expected):
