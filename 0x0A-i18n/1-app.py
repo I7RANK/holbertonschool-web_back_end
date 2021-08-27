@@ -10,10 +10,13 @@ app = Flask("my_beautiful_app")
 babel = Babel(app)
 
 
-class config():
+class Config():
     """configures available languages in our app
     """
     LANGUAGES = ["en", "fr"]
+
+
+app.config.from_object(Config)
 
 
 @app.route("/", strict_slashes=False)
