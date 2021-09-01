@@ -9,7 +9,8 @@ from functools import wraps
 
 
 def count_calls(method: Callable) -> Callable:
-    """"""
+    """counts each call of a function
+    """
     key = method.__qualname__
 
     @wraps(method)
@@ -23,6 +24,26 @@ def count_calls(method: Callable) -> Callable:
     return counter
 
 
+def call_history(method: Callable) -> Callable:
+    """stores the history of inputs and outputs for a particular function
+    """
+    @wraps(method)
+    def save_input_output_history(self, *args, **kwargs):
+        """saves the input and output of each function in redis
+        """
+        input_key = method.__qualname__ + ":inputs"
+        output_key = method.__qualname__ + ":outputs"
+
+        output = method(self, *args, **kwargs)
+
+        self._redis.rpush(input_key, str(args))
+        self._redis.rpush(output_key, str(output))
+
+        return output
+
+    return save_input_output_history
+
+
 class Cache():
     """Cache class
     """
@@ -34,6 +55,7 @@ class Cache():
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """saves data in redis using an uniq uuid
         """
