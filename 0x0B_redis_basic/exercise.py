@@ -41,25 +41,12 @@ class Cache():
 
         return data
 
-    def get_str():
+    def get_str(self):
         """automatically parametrize Cache.get
             with the correct conversion function.
         """
 
-    def get_int():
+    def get_int(self):
         """automatically parametrize Cache.get
             with the correct conversion function.
         """
-
-
-cache = Cache()
-
-TEST_CASES = {
-    b"foo": None,
-    123: int,
-    "bar": lambda d: d.decode("utf-8")
-}
-
-for value, fn in TEST_CASES.items():
-    key = cache.store(value)
-    assert cache.get(key, fn=fn) == value
