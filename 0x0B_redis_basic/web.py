@@ -21,13 +21,13 @@ def call_history(method: Callable) -> Callable:
         key = ":count:{}".format(*args)
 
         _redis.incr(key)
-        cache = _redis.get(key).decode('utf-8')
+        cache = _redis.get(*args)
         if cache:
-            return cache
+            return cache.decode('utf-8')
 
         html = method(*args, **kwargs)
 
-        _redis.setex(key, 10, html)
+        _redis.setex(*args, 10, html)
 
         return html
 
@@ -41,3 +41,5 @@ def get_page(url: str) -> str:
     x = requests.get(url)
 
     return x.text
+
+print(get_page('http://slowwly.robertomurray.co.uk'))
