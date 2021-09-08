@@ -1,0 +1,8 @@
+// inserts a document in the collection school
+use $1
+
+db.movies.insertOne(
+    {
+        name: "Holberton school"
+    }
+)
