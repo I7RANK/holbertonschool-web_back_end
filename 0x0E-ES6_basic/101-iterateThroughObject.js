@@ -1,16 +1,15 @@
 export default function iterateThroughObject(reportWithIterator) {
-  let new_str = "";
+  let newStr = '';
   let control = true;
 
   for (const employee of reportWithIterator) {
     if (control) {
-      new_str += employee;
+      newStr += employee;
       control = false;
-    }
-    else {
-      new_str += ` | ${employee}`;
+    } else {
+      newStr += ` | ${employee}`;
     }
   }
 
-  return new_str;
+  return newStr;
 }
