@@ -3,9 +3,9 @@ export const weakMap = new WeakMap();
 export function queryAPI(endpoint) {
   let times = 1;
   if (weakMap.has(endpoint)) {
-    times = weakMap.get(endpoint)
+    times = weakMap.get(endpoint);
 
-    times++;
+    times += 1;
 
     weakMap.set(endpoint, times);
   } else {
