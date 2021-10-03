@@ -10,7 +10,4 @@ import { createClient } from 'redis';
   await client.connect();
 
   console.log('Redis client connected to the server');
-
-  /* await client.set('key', 'value');
-  const value = await client.get('key'); */
 })();
